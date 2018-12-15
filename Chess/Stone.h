@@ -21,6 +21,8 @@ public:
 
     QString getText();
 
+    void rotate();
+
 };
 
 //#endif // STONE_H
