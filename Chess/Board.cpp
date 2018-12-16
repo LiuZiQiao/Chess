@@ -257,8 +257,9 @@ bool Board::canMoveSHI(int moveid, int row, int col, int )
 
     int dr = _s[moveid]._row-row;
     int dc = _s[moveid]._col-col;
-    int d = abs(dr)*10+abs(dc);
-    if(d == 11)
+//    int d = abs(dr)*10+abs(dc);
+    if(abs(dr)==1 && abs(dc)==1)
+//    if(d == 11)
         return true;
     return false;
 
@@ -369,20 +370,92 @@ bool Board::canMovePAO(int moveid, int row, int col, int killid)
 }
 bool Board::canMoveBING(int moveid, int row, int col, int)
 {
-    GetRowCol(row1,col1,moveid);
-    int r = relation(row,col1,row,col);
-    if(r != 1 && r != 10) return false;
-    if(isBottomSide(moveid))
+    int dr = _s[moveid]._row-row;
+    int dc = _s[moveid]._col-col;
+    if(_s[moveid]._red)
     {
-        if(row>row1) return false;
-        if(row1 >=5 && row == row1) return false;
+        //过河前
+        if(_s[moveid]._row>=4&&_s[moveid]._row<=7)
+        {
+            if(dr==1&&dc==0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //过河后
+        else
+        {
+           if((dr==1 && dc==0) || (dc==1 && dr==0)|| (dr==0 && dc==-1))
+           {
+               if(dr==1&& dc ==0)   //竖着走
+               {
+                   return true;
+               }
+               else if(dr ==0 && dc ==1)
+               {
+                   return true;
+               }
+           }
+           else
+           {
+               return false;
+           }
+        }
+
     }
     else
     {
-        if(row < row1) return false;
-        if(row1 <= 4 && row == row1) return false;
+        if(_s[moveid]._row>=4 && _s[moveid]._row<=5)
+        {
+            if(dr==-1 && dc ==0)
+            {
+                return true;
+            }
+            else if(dr == 0&& dc ==-1 || dr==0&&dc==1)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if((dr==-1 && dc==0) || (dc==1 && dr==0)|| (dr==0 && dc==-1))
+            {
+                if(dr==1 && dc ==0)  //竖着走
+                {
+                    return true;
+                }
+                else if(dr == 0&& dc == 1 || dr==1&&dc ==-1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
     return true;
+
+
+//    GetRowCol(row1,col1,moveid);
+//    int r = relation(row,col1,row,col);
+//    if(r != 1 && r != 10) return false;
+//    if(isBottomSide(moveid))
+//    {
+//        if(row>row1) return false;
+//        if(row1 >=5 && row == row1) return false;
+//    }
+//    else
+//    {
+//        if(row < row1) return false;
+//        if(row1 <= 4 && row == row1) return false;
+//    }
+//    return true;
 }
 
 
