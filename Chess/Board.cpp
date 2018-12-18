@@ -375,7 +375,7 @@ bool Board::canMoveBING(int moveid, int row, int col, int)
     if(_s[moveid]._red)
     {
         //过河前
-        if(_s[moveid]._row>=4&&_s[moveid]._row<=7)
+        if(_s[moveid]._row>=6&&_s[moveid]._row<=7)
         {
             if(dr==1&&dc==0)
             {
@@ -389,15 +389,15 @@ bool Board::canMoveBING(int moveid, int row, int col, int)
         //过河后
         else
         {
-           if((dr==1 && dc==0) || (dc==1 && dr==0)|| (dr==0 && dc==-1))
+           if(abs(dr)==1 && abs(dc)==0||abs(dr)==0&&abs(dc)==1)
            {
-               if(dr==1&& dc ==0)   //竖着走
+               if(dr==1&&dc==0)   //竖着走
                {
                    return true;
                }
-               else if(dr ==0 && dc ==1)
+               else
                {
-                   return true;
+                   return false;
                }
            }
            else
@@ -409,26 +409,26 @@ bool Board::canMoveBING(int moveid, int row, int col, int)
     }
     else
     {
-        if(_s[moveid]._row>=4 && _s[moveid]._row<=5)
+        if(_s[moveid]._row>4 && _s[moveid]._row<=5)
         {
-            if(dr==-1 && dc ==0)
+            if(dr==1 && dc ==0)
             {
                 return true;
             }
-            else if(dr == 0&& dc ==-1 || dr==0&&dc==1)
+            else
             {
                 return false;
             }
         }
         else
         {
-            if((dr==-1 && dc==0) || (dc==1 && dr==0)|| (dr==0 && dc==-1))
+            if(abs(dr)==1 && abs(dc)==0||abs(dr)==0&&abs(dc)==1)
             {
-                if(dr==1 && dc ==0)  //竖着走
+                if(dr==-1)  //竖着走
                 {
                     return true;
                 }
-                else if(dr == 0&& dc == 1 || dr==1&&dc ==-1)
+                else
                 {
                     return true;
                 }
